@@ -1,0 +1,41 @@
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: lightblue;
+    margin: 0;
+    padding: 50px;
+}
+
+.box {
+    background-color: white;
+    width: 400px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px gray;
+}
+
+h1 {
+    color: darkblue;
+}
+
+button {
+    background-color: darkblue;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: blue;
+}
+
+#message {
+    font-size: 20px;
+    color: green;
+    margin: 20px;
+}
+

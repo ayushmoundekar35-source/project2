@@ -1,0 +1,2060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EventGo - Movies, Events & Experiences</title>
+
+<!-- QR Code Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f5f7fb;
+    color:#222;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    background:linear-gradient(135deg,#d81b60,#7b1fa2);
+    color:white;
+    padding:15px 6%;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 3px 15px rgba(0,0,0,.2);
+}
+
+.header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+    white-space:nowrap;
+}
+
+.logo span{
+    color:#ffd54f;
+}
+
+.search-box{
+    flex:1;
+    max-width:550px;
+}
+
+.search-box input{
+    width:100%;
+    padding:13px 20px;
+    border:none;
+    border-radius:30px;
+    outline:none;
+    font-size:15px;
+}
+
+.header-buttons{
+    display:flex;
+    gap:10px;
+}
+
+.btn{
+    border:none;
+    padding:11px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.login-btn{
+    background:white;
+    color:#7b1fa2;
+}
+
+.location-btn{
+    background:#ffca28;
+    color:#222;
+}
+
+/* ================= NAV ================= */
+
+nav{
+    background:#fff;
+    padding:12px 6%;
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+    position:sticky;
+    top:68px;
+    z-index:900;
+}
+
+nav a{
+    text-decoration:none;
+    color:#333;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+nav a:hover{
+    color:#d81b60;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:420px;
+    padding:70px 6%;
+    color:white;
+
+    background:
+    linear-gradient(rgba(35,0,50,.65),rgba(35,0,50,.65)),
+    url("https://images.unsplash.com/photo-1503095396549-807759245b35?auto=format&fit=crop&w=1800&q=80");
+
+    background-size:cover;
+    background-position:center;
+
+    display:flex;
+    align-items:center;
+}
+
+.hero-content{
+    max-width:700px;
+}
+
+.hero h1{
+    font-size:55px;
+    margin-bottom:20px;
+}
+
+.hero p{
+    font-size:20px;
+    margin-bottom:25px;
+}
+
+.hero-btn{
+    background:#ffca28;
+    color:#222;
+    padding:15px 25px;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* ================= LOCATION ================= */
+
+.location-bar{
+    background:white;
+    margin:-30px auto 30px;
+    position:relative;
+    width:88%;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 25px rgba(0,0,0,.15);
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.location-info{
+    font-size:16px;
+}
+
+.location-info strong{
+    color:#7b1fa2;
+}
+
+/* ================= CATEGORIES ================= */
+
+.container{
+    width:88%;
+    margin:auto;
+}
+
+.section-title{
+    margin:40px 0 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.section-title h2{
+    font-size:28px;
+}
+
+.categories{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:15px;
+}
+
+.category{
+    background:white;
+    padding:20px 10px;
+    border-radius:12px;
+    text-align:center;
+    cursor:pointer;
+    box-shadow:0 3px 10px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.category:hover{
+    transform:translateY(-5px);
+    background:#fff5fa;
+}
+
+.category-icon{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+/* ================= CARDS ================= */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 3px 15px rgba(0,0,0,.1);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 8px 25px rgba(0,0,0,.15);
+}
+
+.card img{
+    width:100%;
+    height:240px;
+    object-fit:cover;
+}
+
+.card-content{
+    padding:16px;
+}
+
+.card h3{
+    margin-bottom:8px;
+}
+
+.card p{
+    color:#666;
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+.rating{
+    color:#ff9800;
+    font-weight:bold;
+}
+
+.price{
+    color:#d81b60;
+    font-size:19px;
+    font-weight:bold;
+    margin:10px 0;
+}
+
+.book-btn{
+    width:100%;
+    padding:11px;
+    background:#d81b60;
+    color:white;
+    border:none;
+    border-radius:7px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.book-btn:hover{
+    background:#ad1457;
+}
+
+/* ================= GARBA ================= */
+
+.garba{
+    margin-top:50px;
+    border-radius:20px;
+    padding:50px;
+
+    color:white;
+
+    background:
+    linear-gradient(90deg,rgba(90,0,50,.9),rgba(130,0,80,.55)),
+    url("https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1800&q=80");
+
+    background-size:cover;
+}
+
+.garba h2{
+    font-size:40px;
+    margin-bottom:15px;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.7);
+    z-index:5000;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+}
+
+.modal-box{
+    background:white;
+    width:100%;
+    max-width:600px;
+    max-height:90vh;
+    overflow:auto;
+    border-radius:18px;
+    padding:30px;
+    position:relative;
+}
+
+.close{
+    position:absolute;
+    right:20px;
+    top:15px;
+    font-size:28px;
+    cursor:pointer;
+}
+
+/* ================= FORMS ================= */
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
+}
+
+.form-group input,
+.form-group select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:7px;
+}
+
+.primary-btn{
+    width:100%;
+    padding:13px;
+    border:none;
+    background:#7b1fa2;
+    color:white;
+    border-radius:7px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* ================= TICKET ================= */
+
+.ticket-info{
+    background:#f7f7f7;
+    padding:15px;
+    border-radius:10px;
+    margin:15px 0;
+}
+
+.ticket-row{
+    display:flex;
+    justify-content:space-between;
+    margin:8px 0;
+}
+
+.quantity{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin:15px 0;
+}
+
+.quantity button{
+    width:35px;
+    height:35px;
+    border:none;
+    background:#7b1fa2;
+    color:white;
+    border-radius:50%;
+    cursor:pointer;
+}
+
+/* ================= PAYMENT ================= */
+
+.payment-methods{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin:15px 0;
+}
+
+.payment-method{
+    border:1px solid #ddd;
+    padding:15px;
+    text-align:center;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.payment-method.active{
+    border:2px solid #7b1fa2;
+    background:#f6eaff;
+}
+
+.qr-container{
+    text-align:center;
+    padding:20px;
+}
+
+#qrcode{
+    display:flex;
+    justify-content:center;
+    margin:20px;
+}
+
+/* ================= SUCCESS ================= */
+
+.success{
+    text-align:center;
+}
+
+.success-icon{
+    font-size:70px;
+    color:#4caf50;
+}
+
+.booking-id{
+    background:#f2f2f2;
+    padding:12px;
+    border-radius:8px;
+    margin:15px 0;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    background:#21102b;
+    color:white;
+    padding:50px 6%;
+    margin-top:60px;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:30px;
+}
+
+footer h3{
+    margin-bottom:15px;
+}
+
+footer p{
+    color:#ccc;
+    line-height:1.8;
+}
+
+.copyright{
+    border-top:1px solid #555;
+    margin-top:30px;
+    padding-top:20px;
+    text-align:center;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1000px){
+
+    .categories{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .header{
+        flex-wrap:wrap;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .logo{
+        font-size:22px;
+    }
+
+    nav{
+        overflow-x:auto;
+        justify-content:flex-start;
+        white-space:nowrap;
+    }
+
+    .hero h1{
+        font-size:38px;
+    }
+
+    .location-bar{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .categories{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+
+    .payment-methods{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+<div class="header">
+
+<div class="logo">
+Event<span>Go</span>
+</div>
+
+<div class="search-box">
+<input
+type="text"
+id="searchInput"
+placeholder="Search movies, events, concerts, plays..."
+onkeyup="searchEvents()">
+</div>
+
+<div class="header-buttons">
+
+<button class="btn location-btn" onclick="getLocation()">
+📍 Location
+</button>
+
+<button class="btn login-btn" onclick="openLogin()">
+👤 Login
+</button>
+
+</div>
+
+</div>
+
+</header>
+
+
+<!-- ================= NAVIGATION ================= -->
+
+<nav>
+
+<a onclick="filterCategory('all')">Home</a>
+<a onclick="filterCategory('movie')">Movies</a>
+<a onclick="filterCategory('adventure')">Adventure</a>
+<a onclick="filterCategory('play')">Plays</a>
+<a onclick="filterCategory('live')">Live Events</a>
+<a onclick="filterCategory('garba')">Garba</a>
+<a onclick="filterCategory('stream')">Streaming</a>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+<div class="hero-content">
+
+<h1>Book Your Next Experience</h1>
+
+<p>
+Movies • Concerts • Adventure • Plays • Garba • Live Events
+</p>
+
+<button class="hero-btn" onclick="scrollToEvents()">
+Explore Events
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= LOCATION ================= -->
+
+<div class="location-bar">
+
+<div class="location-info">
+
+📍 Your Location:
+
+<strong id="locationText">
+Location not selected
+</strong>
+
+</div>
+
+<button class="primary-btn"
+style="width:auto"
+onclick="getLocation()">
+
+Detect My Location
+
+</button>
+
+</div>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="container">
+
+
+<!-- CATEGORIES -->
+
+<div class="section-title">
+
+<h2>Explore Categories</h2>
+
+</div>
+
+<div class="categories">
+
+<div class="category" onclick="filterCategory('movie')">
+<div class="category-icon">🎬</div>
+Movies
+</div>
+
+<div class="category" onclick="filterCategory('adventure')">
+<div class="category-icon">🏔️</div>
+Adventure
+</div>
+
+<div class="category" onclick="filterCategory('play')">
+<div class="category-icon">🎭</div>
+Plays
+</div>
+
+<div class="category" onclick="filterCategory('live')">
+<div class="category-icon">🎤</div>
+Live Events
+</div>
+
+<div class="category" onclick="filterCategory('garba')">
+<div class="category-icon">💃</div>
+Garba
+</div>
+
+<div class="category" onclick="filterCategory('stream')">
+<div class="category-icon">📺</div>
+Streaming
+</div>
+
+<div class="category" onclick="filterCategory('all')">
+<div class="category-icon">🔥</div>
+Trending
+</div>
+
+</div>
+
+
+<!-- ================= EVENTS ================= -->
+
+<div class="section-title" id="events">
+
+<h2>Latest & Popular</h2>
+
+<span id="eventCount"></span>
+
+</div>
+
+<div class="cards" id="eventCards">
+
+
+<!-- MOVIE -->
+
+<div class="card event-card movie">
+
+<img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=700&q=80">
+
+<div class="card-content">
+
+<h3>Mirzapur: The Movie</h3>
+
+<p>🎬 Bollywood • Crime / Thriller</p>
+
+<p>📅 September 2026</p>
+
+<div class="rating">⭐ 8.4</div>
+
+<div class="price">From ₹199</div>
+
+<button class="book-btn"
+onclick="openBooking('Mirzapur: The Movie',199)">
+Book Now
+</button>
+
+</div>
+
+</div>
+
+
+<!-- MOVIE -->
+
+<div class="card event-card movie">
+
+<img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=700&q=80">
+
+<div class="card-content">
+
+<h3>Ghamasaan</h3>
+
+<p>🎬 Bollywood • Crime / Thriller</p>
+
+<p>📅 September 2026</p>
+
+<div class="rating">⭐ 8.1</div>
+
+<div class="price">From ₹179</div>
+
+<button class="book-btn"
+onclick="openBooking('Ghamasaan',179)">
+Book Now
+</button>
+
+</div>
+
+</div>
+
+
+<!-- HOLLYWOOD -->
+
+<div class="card event-card movie">
+
+<img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=700&q=80">
+
+<div class="card-content">
+
+<h3>Heart of the Beast</h3>
+
+<p>🎬 Hollywood • Adventure / Thriller</p>
+
+<p>📅 25 September 2026</p>
+
+<div class="rating">⭐ 8.0</div>
+
+<div class="price">From ₹299</div>
+
+<button class="book-btn"
+onclick="openBooking('Heart of the Beast',299)">
+Book Now
+</button>
+
+</div>
+
+</div>
+
+
+<!-- HOLLYWOOD -->
+
+<div class="card event-card movie">
+
+<img src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf?auto=format&fit=crop&w=700&q=80">
+
+<div class="card-content">
+
+<h3>Resident Evil</h3>
+
+<p>🎬 Hollywood • Horror</p>
+
+<p>📅 18 September 2026</p>
+
+<div class="rating">⭐ 8.2</div>
+
+<div class="price">From ₹299</div>
+
+<button class="book-btn"
+onclick="openBooking('Resident Evil',299)">
+Book Now
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ADVENTURE -->
+
+<div class="card event-card adventure">
+
+<img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=700&q=80">
+
+<div class="card-content">
+
+<h3>Himalayan Adventure</h3>
+
+<p>🏔️ Trekking • Camping</p>
+
+<p>📍 Manali</p>
+
+<div class="rating">⭐ 4.8</div>
+
+<div class="price">From ₹2,499</div>
+
+<button class="book-btn"
+onclick="openBooking('Himalayan Adventure',2499)">
+Book Now
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ADVENTURE -->
+
+<div class="card event-card adventure">
+
+<img src="https://images.unsplash.com/photo-1521336575822-6da63fb45455?auto=format&fit=crop&w=700&q=80">
+
+<div class="card-content">
+
+<h3>River Rafting</h3>
+
+<p>🏞️ Adventure • Rafting</p>
+
+<p>📍 Rishikesh</p>
+
+<div class="rating">⭐ 4.7</div>
+
+<div class="price">From ₹999</div>
+
+<button class="book-btn"
+onclick="openBooking('River Rafting',999)">
+Book Now
+</button>
+
+</div>
+
+</div>
+
+
+<!-- PLAY -->
+
+<div class="card event-card play">
+
+<img src="https://images.unsplash.com/photo-1503095396549-807759245b35?auto=format&fit=crop&w=700&q=80">
+
+<div class="card-content">
+
+<h3>Live Theatre Night</h3>
+
+<p>🎭 Drama • Theatre</p>
+
+<p>📍 Mumbai</p>
+
+<div class="rating">⭐ 4.6</div>
+
+<div class="price">From ₹599</div>
+
+<button class="book-btn"
+onclick="openBooking('Live Theatre Night',599)">
+Book Now
+</button>
+
+</div>
+
+</div>
+
+
+<!-- LIVE -->
+
+<div class="card event-card live">
+
+<img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=700&q=80">
+
+<div class="card-content">
+
+<h3>Music Festival 2026</h3>
+
+<p>🎤 Live Music • Concert</p>
+
+<p>📍 Pune</p>
+
+<div class="rating">⭐ 4.9</div>
+
+<div class="price">From ₹1,499</div>
+
+<button class="book-btn"
+onclick="openBooking('Music Festival 2026',1499)">
+Book Now
+</button>
+
+</div>
+
+</div>
+
+
+<!-- GARBA -->
+
+<div class="card event-card garba">
+
+<img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=700&q=80">
+
+<div class="card-content">
+
+<h3>Grand Navratri Garba</h3>
+
+<p>💃 Garba • Navratri</p>
+
+<p>📍 Ahmedabad</p>
+
+<div class="rating">⭐ 4.9</div>
+
+<div class="price">From ₹499</div>
+
+<button class="book-btn"
+onclick="openBooking('Grand Navratri Garba',499)">
+Book Now
+</button>
+
+</div>
+
+</div>
+
+
+<!-- STREAMING -->
+
+<div class="card event-card stream">
+
+<img src="https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&w=700&q=80">
+
+<div class="card-content">
+
+<h3>OTT Movie Night</h3>
+
+<p>📺 Streaming • Special Screening</p>
+
+<p>Online Event</p>
+
+<div class="rating">⭐ 4.5</div>
+
+<div class="price">From ₹149</div>
+
+<button class="book-btn"
+onclick="openBooking('OTT Movie Night',149)">
+Book Now
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= GARBA PROMOTION ================= -->
+
+<section class="garba">
+
+<h2>💃 Navratri & Garba Nights</h2>
+
+<p>
+Experience live music, traditional Garba, Dandiya,
+food and celebrations.
+</p>
+
+<br>
+
+<button class="hero-btn"
+onclick="filterCategory('garba')">
+
+Explore Garba Events
+
+</button>
+
+</section>
+
+
+</main>
+
+
+<!-- ================= LOGIN MODAL ================= -->
+
+<div class="modal" id="loginModal">
+
+<div class="modal-box">
+
+<span class="close"
+onclick="closeModal('loginModal')">
+×
+</span>
+
+<h2>👤 Login to EventGo</h2>
+
+<br>
+
+<div class="form-group">
+
+<label>Email / Mobile</label>
+
+<input
+type="text"
+id="loginUser"
+placeholder="Enter email or mobile">
+
+</div>
+
+<div class="form-group">
+
+<label>Password</label>
+
+<input
+type="password"
+id="loginPassword"
+placeholder="Enter password">
+
+</div>
+
+<button class="primary-btn"
+onclick="loginUser()">
+
+Login
+
+</button>
+
+<br><br>
+
+<p style="text-align:center">
+
+Don't have an account?
+
+<a href="#" onclick="showSignup()">
+Create Account
+</a>
+
+</p>
+
+</div>
+
+</div>
+
+
+<!-- ================= SIGNUP MODAL ================= -->
+
+<div class="modal" id="signupModal">
+
+<div class="modal-box">
+
+<span class="close"
+onclick="closeModal('signupModal')">
+×
+</span>
+
+<h2>Create EventGo Account</h2>
+
+<br>
+
+<div class="form-group">
+
+<label>Full Name</label>
+
+<input
+type="text"
+id="signupName"
+placeholder="Your name">
+
+</div>
+
+<div class="form-group">
+
+<label>Email</label>
+
+<input
+type="email"
+id="signupEmail"
+placeholder="Email address">
+
+</div>
+
+<div class="form-group">
+
+<label>Mobile</label>
+
+<input
+type="tel"
+id="signupMobile"
+placeholder="Mobile number">
+
+</div>
+
+<div class="form-group">
+
+<label>Password</label>
+
+<input
+type="password"
+id="signupPassword"
+placeholder="Create password">
+
+</div>
+
+<button class="primary-btn"
+onclick="signupUser()">
+
+Create Account
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ================= BOOKING MODAL ================= -->
+
+<div class="modal" id="bookingModal">
+
+<div class="modal-box">
+
+<span class="close"
+onclick="closeModal('bookingModal')">
+×
+</span>
+
+<h2>🎟️ Book Tickets</h2>
+
+<br>
+
+<h3 id="bookingEvent"></h3>
+
+<div class="ticket-info">
+
+<div class="ticket-row">
+<span>Ticket Price</span>
+<strong>₹<span id="ticketPrice"></span></strong>
+</div>
+
+<div class="quantity">
+
+<span>Tickets:</span>
+
+<button onclick="changeQuantity(-1)">−</button>
+
+<strong id="quantity">1</strong>
+
+<button onclick="changeQuantity(1)">+</button>
+
+</div>
+
+<div class="ticket-row">
+
+<span>Total</span>
+
+<strong>
+₹<span id="totalPrice"></span>
+</strong>
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Select Date</label>
+
+<input type="date" id="eventDate">
+
+</div>
+
+
+<div class="form-group">
+
+<label>Select City</label>
+
+<select id="eventCity">
+
+<option>Pune</option>
+<option>Mumbai</option>
+<option>Ahmedabad</option>
+<option>Delhi</option>
+<option>Bengaluru</option>
+<option>Hyderabad</option>
+
+</select>
+
+</div>
+
+<button class="primary-btn"
+onclick="goToPayment()">
+
+Continue to Payment
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ================= PAYMENT MODAL ================= -->
+
+<div class="modal" id="paymentModal">
+
+<div class="modal-box">
+
+<span class="close"
+onclick="closeModal('paymentModal')">
+×
+</span>
+
+<h2>💳 Payment</h2>
+
+<p id="paymentAmount"></p>
+
+<div class="payment-methods">
+
+<div class="payment-method active"
+onclick="selectPayment('upi',this)">
+📱 UPI
+</div>
+
+<div class="payment-method"
+onclick="selectPayment('card',this)">
+💳 Card
+</div>
+
+<div class="payment-method"
+onclick="selectPayment('netbanking',this)">
+🏦 Net Banking
+</div>
+
+</div>
+
+
+<!-- UPI -->
+
+<div id="upiPayment">
+
+<div class="form-group">
+
+<label>Your UPI ID</label>
+
+<input
+type="text"
+id="upiId"
+placeholder="example@upi">
+
+</div>
+
+<button class="primary-btn"
+onclick="generateQR()">
+
+Generate Payment QR
+
+</button>
+
+<div class="qr-container">
+
+<div id="qrcode"></div>
+
+<p id="qrText"></p>
+
+</div>
+
+</div>
+
+
+<!-- CARD -->
+
+<div id="cardPayment"
+style="display:none">
+
+<div class="form-group">
+
+<label>Card Number</label>
+
+<input
+type="text"
+placeholder="1234 5678 9012 3456">
+
+</div>
+
+<div class="form-group">
+
+<label>Card Holder Name</label>
+
+<input
+type="text"
+placeholder="Name on card">
+
+</div>
+
+<div style="display:flex;gap:10px">
+
+<div class="form-group" style="flex:1">
+
+<label>Expiry</label>
+
+<input
+type="text"
+placeholder="MM/YY">
+
+</div>
+
+<div class="form-group" style="flex:1">
+
+<label>CVV</label>
+
+<input
+type="password"
+placeholder="CVV">
+
+</div>
+
+</div>
+
+<button class="primary-btn"
+onclick="completePayment()">
+
+Pay Securely
+
+</button>
+
+</div>
+
+
+<!-- NET BANKING -->
+
+<div id="netbankingPayment"
+style="display:none">
+
+<div class="form-group">
+
+<label>Select Bank</label>
+
+<select>
+
+<option>State Bank of India</option>
+<option>HDFC Bank</option>
+<option>ICICI Bank</option>
+<option>Axis Bank</option>
+<option>Kotak Mahindra Bank</option>
+
+</select>
+
+</div>
+
+<button class="primary-btn"
+onclick="completePayment()">
+
+Continue to Bank
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= SUCCESS MODAL ================= -->
+
+<div class="modal" id="successModal">
+
+<div class="modal-box success">
+
+<span class="close"
+onclick="closeModal('successModal')">
+×
+</span>
+
+<div class="success-icon">
+✓
+</div>
+
+<h2>Booking Confirmed!</h2>
+
+<p>Your ticket has been booked successfully.</p>
+
+<div class="booking-id">
+
+<strong>Booking ID:</strong>
+
+<span id="bookingId"></span>
+
+</div>
+
+<div class="ticket-info">
+
+<div class="ticket-row">
+<span>Event</span>
+<strong id="successEvent"></strong>
+</div>
+
+<div class="ticket-row">
+<span>Tickets</span>
+<strong id="successTickets"></strong>
+</div>
+
+<div class="ticket-row">
+<span>Total Paid</span>
+<strong>₹<span id="successAmount"></span></strong>
+</div>
+
+</div>
+
+<button class="primary-btn"
+onclick="window.print()">
+
+🖨️ Print Ticket
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<div class="footer-grid">
+
+<div>
+
+<h3>EventGo</h3>
+
+<p>
+Your one-stop destination for
+movies, events, concerts,
+adventures and experiences.
+</p>
+
+</div>
+
+<div>
+
+<h3>Explore</h3>
+
+<p>Movies</p>
+<p>Live Events</p>
+<p>Adventure</p>
+<p>Plays</p>
+
+</div>
+
+<div>
+
+<h3>Popular</h3>
+
+<p>Bollywood</p>
+<p>Hollywood</p>
+<p>Garba</p>
+<p>Streaming</p>
+
+</div>
+
+<div>
+
+<h3>Support</h3>
+
+<p>Help Center</p>
+<p>Contact Us</p>
+<p>Cancellation</p>
+<p>Terms & Conditions</p>
+
+</div>
+
+</div>
+
+<div class="copyright">
+
+© 2026 EventGo. All Rights Reserved.
+
+</div>
+
+</footer>
+
+
+<script>
+
+/* ================= GLOBAL VARIABLES ================= */
+
+let selectedEvent = "";
+let selectedPrice = 0;
+let ticketQuantity = 1;
+let paymentMethod = "upi";
+
+
+/* ================= LOGIN ================= */
+
+function openLogin(){
+
+    document.getElementById("loginModal").style.display="flex";
+
+}
+
+function showSignup(){
+
+    closeModal("loginModal");
+
+    document.getElementById("signupModal").style.display="flex";
+
+}
+
+function signupUser(){
+
+    let name =
+    document.getElementById("signupName").value;
+
+    let email =
+    document.getElementById("signupEmail").value;
+
+    let mobile =
+    document.getElementById("signupMobile").value;
+
+    let password =
+    document.getElementById("signupPassword").value;
+
+    if(!name || !email || !mobile || !password){
+
+        alert("Please fill all fields.");
+
+        return;
+
+    }
+
+    /*
+    Demo local storage login.
+
+    IMPORTANT:
+    For a real production website use:
+    Firebase Authentication / your backend.
+    Never store real passwords in localStorage.
+    */
+
+    localStorage.setItem(
+        "eventgoUser",
+        JSON.stringify({
+            name:name,
+            email:email,
+            mobile:mobile
+        })
+    );
+
+    alert("Account created successfully!");
+
+    closeModal("signupModal");
+
+    openLogin();
+
+}
+
+
+function loginUser(){
+
+    let username =
+    document.getElementById("loginUser").value;
+
+    let password =
+    document.getElementById("loginPassword").value;
+
+    if(!username || !password){
+
+        alert("Please enter login details.");
+
+        return;
+
+    }
+
+    alert("Login successful!");
+
+    closeModal("loginModal");
+
+}
+
+
+/* ================= LOCATION ================= */
+
+function getLocation(){
+
+    if(!navigator.geolocation){
+
+        alert("Geolocation is not supported by your browser.");
+
+        return;
+
+    }
+
+    document.getElementById("locationText").innerText =
+    "Detecting location...";
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position){
+
+            let lat =
+            position.coords.latitude;
+
+            let lon =
+            position.coords.longitude;
+
+            /*
+            Reverse geocoding using OpenStreetMap Nominatim.
+            For production, use your own geocoding service/backend.
+            */
+
+            fetch(
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
+            )
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                let address =
+                data.display_name || "Location detected";
+
+                document.getElementById(
+                    "locationText"
+                ).innerText = address;
+
+            })
+
+            .catch(() => {
+
+                document.getElementById(
+                    "locationText"
+                ).innerText =
+                `Lat: ${lat.toFixed(4)}, Lon: ${lon.toFixed(4)}`;
+
+            });
+
+        },
+
+        function(error){
+
+            document.getElementById(
+                "locationText"
+            ).innerText =
+            "Location permission denied";
+
+            alert(
+                "Please allow location permission in your browser."
+            );
+
+        }
+
+    );
+
+}
+
+
+/* ================= FILTER ================= */
+
+function filterCategory(category){
+
+    let cards =
+    document.querySelectorAll(".event-card");
+
+    cards.forEach(card => {
+
+        if(category === "all"){
+
+            card.style.display="block";
+
+        }
+
+        else if(card.classList.contains(category)){
+
+            card.style.display="block";
+
+        }
+
+        else{
+
+            card.style.display="none";
+
+        }
+
+    });
+
+    scrollToEvents();
+
+}
+
+
+/* ================= SEARCH ================= */
+
+function searchEvents(){
+
+    let search =
+    document.getElementById("searchInput")
+    .value
+    .toLowerCase();
+
+    let cards =
+    document.querySelectorAll(".event-card");
+
+    cards.forEach(card => {
+
+        let text =
+        card.innerText.toLowerCase();
+
+        if(text.includes(search)){
+
+            card.style.display="block";
+
+        }else{
+
+            card.style.display="none";
+
+        }
+
+    });
+
+}
+
+
+/* ================= BOOKING ================= */
+
+function openBooking(eventName,price){
+
+    selectedEvent = eventName;
+
+    selectedPrice = price;
+
+    ticketQuantity = 1;
+
+    document.getElementById(
+        "bookingEvent"
+    ).innerText = eventName;
+
+    document.getElementById(
+        "ticketPrice"
+    ).innerText = price;
+
+    document.getElementById(
+        "quantity"
+    ).innerText = ticketQuantity;
+
+    updateTotal();
+
+    document.getElementById(
+        "bookingModal"
+    ).style.display="flex";
+
+}
+
+
+function changeQuantity(value){
+
+    ticketQuantity += value;
+
+    if(ticketQuantity < 1){
+
+        ticketQuantity = 1;
+
+    }
+
+    if(ticketQuantity > 10){
+
+        ticketQuantity = 10;
+
+    }
+
+    document.getElementById(
+        "quantity"
+    ).innerText = ticketQuantity;
+
+    updateTotal();
+
+}
+
+
+function updateTotal(){
+
+    let total =
+    selectedPrice * ticketQuantity;
+
+    document.getElementById(
+        "totalPrice"
+    ).innerText = total;
+
+}
+
+
+/* ================= PAYMENT ================= */
+
+function goToPayment(){
+
+    let date =
+    document.getElementById("eventDate").value;
+
+    if(!date){
+
+        alert("Please select event date.");
+
+        return;
+
+    }
+
+    let total =
+    selectedPrice * ticketQuantity;
+
+    document.getElementById(
+        "paymentAmount"
+    ).innerHTML =
+    `<strong>Total Amount: ₹${total}</strong>`;
+
+    closeModal("bookingModal");
+
+    document.getElementById(
+        "paymentModal"
+    ).style.display="flex";
+
+}
+
+
+function selectPayment(method,element){
+
+    paymentMethod = method;
+
+    document.querySelectorAll(
+        ".payment-method"
+    ).forEach(item => {
+
+        item.classList.remove("active");
+
+    });
+
+    element.classList.add("active");
+
+
+    document.getElementById(
+        "upiPayment"
+    ).style.display =
+    method === "upi" ? "block" : "none";
+
+
+    document.getElementById(
+        "cardPayment"
+    ).style.display =
+    method === "card" ? "block" : "none";
+
+
+    document.getElementById(
+        "netbankingPayment"
+    ).style.display =
+    method === "netbanking" ? "block" : "none";
+
+}
+
+
+/* ================= QR PAYMENT ================= */
+
+function generateQR(){
+
+    let upi =
+    document.getElementById("upiId").value;
+
+    if(!upi){
+
+        alert("Enter your UPI ID.");
+
+        return;
+
+    }
+
+    let total =
+    selectedPrice * ticketQuantity;
+
+
+    /*
+    Replace eventgo@upi with your REAL
+    merchant UPI ID.
+
+    Example:
+
+    merchant@oksbi
+    merchant@paytm
+    merchant@ybl
+
+    */
+
+    let merchantUPI = upi;
+
+    let qrData =
+    `upi://pay?pa=${merchantUPI}&pn=EventGo&am=${total}&cu=INR`;
+
+    document.getElementById("qrcode").innerHTML="";
+
+    new QRCode(
+        document.getElementById("qrcode"),
+        {
+            text:qrData,
+            width:220,
+            height:220
+        }
+    );
+
+    document.getElementById(
+        "qrText"
+    ).innerHTML =
+    `Scan this QR using any supported UPI app to pay ₹${total}.`;
+
+    /*
+    DEMO:
+
+    After successful payment confirmation,
+    your backend/payment gateway should call
+    completePayment().
+
+    Do NOT trust only frontend confirmation
+    for real money transactions.
+    */
+
+}
+
+
+function completePayment(){
+
+    /*
+    DEMO PAYMENT SUCCESS.
+
+    Real website:
+    Verify payment on your backend
+    using Razorpay/Stripe/etc.
+    */
+
+    closeModal("paymentModal");
+
+    let bookingNumber =
+    "EVG" +
+    Math.floor(
+        100000 + Math.random() * 900000
+    );
+
+    let total =
+    selectedPrice * ticketQuantity;
+
+
+    document.getElementById(
+        "bookingId"
+    ).innerText = bookingNumber;
+
+    document.getElementById(
+        "successEvent"
+    ).innerText = selectedEvent;
+
+    document.getElementById(
+        "successTickets"
+    ).innerText = ticketQuantity;
+
+    document.getElementById(
+        "successAmount"
+    ).innerText = total;
+
+    document.getElementById(
+        "successModal"
+    ).style.display="flex";
+
+}
+
+
+/* ================= MODAL ================= */
+
+function closeModal(id){
+
+    document.getElementById(id).style.display="none";
+
+}
+
+
+/* ================= SCROLL ================= */
+
+function scrollToEvents(){
+
+    document.getElementById(
+        "events"
+    ).scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+
+/* ================= DATE ================= */
+
+let today =
+new Date().toISOString().split("T")[0];
+
+document.getElementById(
+    "eventDate"
+).min = today;
+
+
+/* ================= INITIAL COUNT ================= */
+
+document.getElementById(
+    "eventCount"
+).innerText =
+document.querySelectorAll(".event-card").length
++ " experiences";
+
+
+</script>
+
+</body>
+</html>
